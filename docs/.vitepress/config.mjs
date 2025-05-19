@@ -117,7 +117,6 @@ export default defineConfig({
           
       //   ]
       // },
-      
     ],
 
     sidebar: [
