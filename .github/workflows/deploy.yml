@@ -3,11 +3,12 @@ name: Deploy VitePress site to GitHub Pages
 on:
   push:
     branches:
-      - main  # 主分支改成你自己的主开发分支名
+      - main  # 如果你的主分支不是 main，请替换为实际名称
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,12 +17,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build VitePress site
-        run: npm run docs:build
+        run: pnpm run docs:build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
